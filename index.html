@@ -912,7 +912,112 @@ window.doCalc = function(){
 }
 setTimeout(updatePayLink, 1000);
 </script>
-<section id="quote"><div class="label">GET QUOTATION</div><h2 class="tt">Request Free Quotation</h2><div class="quote"><form id="quoteForm"><label class="lbl">FULL NAME *</label><input id="qName" class="input" required><label class="lbl">PHONE *</label><input id="qPhone" class="input" required><label class="lbl">LOCATION *</label><input id="qLocation" class="input" required><label class="lbl">SERVICE</label><select id="qService" class="input"><option>Interior</option><option>Exterior</option><option>All House</option><option>Shop - Budget</option><option>POP + Painting</option></select><label class="lbl">BUILDING</label><input id="qSize" class="input"><label class="lbl">COLOR</label><input id="qColor" class="input"><label class="lbl">ESTIMATE</label><input id="qEstimate" class="input" readonly><label class="lbl">DETAILS</label><textarea id="qDetails" class="input" style="height:60px"></textarea><div id="formMsg" style="display:none;margin-top:14px;padding:18px;border-radius:14px;text-align:center;font-weight:800;font-size:14px"></div><button type="submit" id="submitBtn" class="btn btn-o" style="width:100%;margin-top:14px;padding:15px">SUBMIT →</button></form><div><div class="card" style="background:var(--bg)"><h3>Why SOLO PAINTS?</h3><p style="color:var(--muted);margin-top:10px">✅ Real Photos Above</p><p style="color:var(--muted)">✅ CAC Registered</p><p style="color:var(--muted)">✅ Pay Small Small</p><p style="color:var(--muted)">✅ 6 Months Guarantee</p><div style="margin-top:14px;padding:12px;background:var(--card);border-radius:12px;border:1px solid var(--line)"><b style="font-size:13px">📞 Contact</b><p style="color:var(--muted);font-size:13px">07043898826<br>sammiejay111@gmail.com</p><div style="display:flex;gap:8px;margin-top:10px"><a href="tel:+2347043898826" style="background:var(--accent);color:#fff;padding:8px 14px;border-radius:100px;text-decoration:none;font-weight:800;font-size:12px">📞 Call Now</a></div></div></div></div></div></section>
+<section id="quote">
+  <div class="label">GET QUOTATION</div>
+  <h2 class="tt">Request Free Quotation</h2>
+  <div class="quote">
+    <form id="quoteForm">
+      <label class="lbl">FULL NAME *</label><input id="qName" class="input" required>
+      <label class="lbl">PHONE *</label><input id="qPhone" class="input" required>
+      <label class="lbl">LOCATION *</label><input id="qLocation" class="input" required>
+      <label class="lbl">SERVICE</label>
+      <select id="qService" class="input">
+        <option>Interior</option>
+        <option>Exterior</option>
+        <option>All House</option>
+        <option>Shop - Budget</option>
+        <option>POP + Painting</option>
+      </select>
+      <label class="lbl">BUILDING</label><input id="qSize" class="input" placeholder="e.g. 3 Bedroom Flat">
+      <label class="lbl">COLOR</label><input id="qColor" class="input">
+      <label class="lbl">ESTIMATE</label><input id="qEstimate" class="input" readonly>
+      <label class="lbl">DETAILS</label><textarea id="qDetails" class="input" style="height:60px"></textarea>
+      
+      <!-- SUCCESS MESSAGE + PAY BUTTONS (Hidden at first) -->
+      <div id="formMsg" style="display:none;margin-top:16px;padding:20px;border-radius:16px;text-align:center;font-weight:700;font-size:14px"></div>
+
+      <button type="submit" id="submitBtn" class="btn btn-o" style="width:100%;margin-top:14px;padding:15px">SUBMIT →</button>
+    </form>
+    
+    <div>
+      <div class="card" style="background:var(--bg)">
+        <h3>Why SOLO PAINTS?</h3>
+        <p style="color:var(--muted);margin-top:10px">✅ Real Photos Above</p>
+        <p style="color:var(--muted)">✅ CAC Registered</p>
+        <p style="color:var(--muted)">✅ Pay Small Small</p>
+        <p style="color:var(--muted)">✅ 6 Months Guarantee</p>
+        <div style="margin-top:14px;padding:12px;background:var(--card);border-radius:12px;border:1px solid var(--line)">
+          <b style="font-size:13px">📞 Contact</b>
+          <p style="color:var(--muted);font-size:13px">07043898826<br>sammiejay111@gmail.com</p>
+          <div style="display:flex;gap:8px;margin-top:10px"><a href="tel:+2347043898826" style="background:var(--accent);color:#fff;padding:8px 14px;border-radius:100px;text-decoration:none;font-weight:800;font-size:12px">📞 Call Now</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// THIS IS THE NEW LOGIC FOR PAY AFTER QUOTE - YOUR IDEA
+document.getElementById('quoteForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  const name = document.getElementById('qName').value;
+  const phone = document.getElementById('qPhone').value;
+  const location = document.getElementById('qLocation').value;
+  const service = document.getElementById('qService').value;
+  const building = document.getElementById('qSize').value;
+  const estimate = document.getElementById('qEstimate').value || document.getElementById('rTotal')?.innerText || 'To be confirmed';
+  const color = document.getElementById('qColor').value;
+
+  if(!name || !phone || !location){
+    alert('Please fill name, phone and location');
+    return;
+  }
+
+  // Show success + pay buttons
+  const msgBox = document.getElementById('formMsg');
+  msgBox.style.display = 'block';
+  msgBox.style.background = '#f0fdf4';
+  msgBox.style.border = '1px solid #bbf7d0';
+  msgBox.style.color = '#14532d';
+  
+  // Extract amount number for checkout link
+  let amountNum = estimate.replace(/[^0-9]/g,'');
+  if(amountNum.length <= 3) amountNum = amountNum + '000'; // 115 -> 115000
+
+  const checkoutLink = `checkout.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service + ' - ' + building)}&amount=${amountNum}&location=${encodeURIComponent(location)}`;
+
+  msgBox.innerHTML = `
+    <div style="font-size:32px">✅</div>
+    <div style="margin-top:8px; font-size:16px; color:#14285C;">Quote Received!</div>
+    <div style="font-size:12px; font-weight:500; color:#64748b; margin-top:6px; line-height:1.4">
+      Thank you ${name}.<br>We got your request for <b>${service}</b> at <b>${location}</b>.<br>
+      Estimate: <b style="color:#14285C">${estimate}</b>
+    </div>
+    
+    <div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
+      <a href="${checkoutLink}" style="display:block; background:#14285C; color:#fff; padding:15px; border-radius:12px; text-decoration:none; font-weight:800; font-size:14px;">
+        💳 PAY NOW WITH CARD / BANK - SECURE
+      </a>
+      <div style="background:#fff; border:1px dashed #93c5fd; padding:12px; border-radius:12px; text-align:left;">
+        <div style="font-size:11px; color:#14285C; font-weight:800;">💰 BANK TRANSFER OPTION:</div>
+        <div style="font-size:12px; margin-top:4px;">Opay: <b>8155053812</b> - Solo Paints<br>
+        <span style="font-size:11px; color:#64748b">After transfer, click WhatsApp button below with receipt</span></div>
+      </div>
+      <a href="https://wa.me/2347043898826?text=${encodeURIComponent(`Hello Solo Paints, I submitted a quote. Name: ${name}, Phone: ${phone}, Location: ${location}, Service: ${service}, Building: ${building}, Estimate: ${estimate}, Color: ${color}. I want to pay now.`)}" style="display:block; background:#25D366; color:#fff; padding:13px; border-radius:12px; text-decoration:none; font-weight:700; font-size:13px;">
+        💬 Confirm Payment on WhatsApp
+      </a>
+    </div>
+    <div style="font-size:10px; color:#94a3b8; margin-top:12px;">You will be redirected to our secure checkout with your real logo • Secured by Paystack</div>
+  `;
+
+  // Also auto-scroll to the message
+  msgBox.scrollIntoView({behavior:'smooth', block:'center'});
+
+  // Hide submit button after submit
+  document.getElementById('submitBtn').style.display = 'none';
+});
+</script>
 <div id="lightbox" onclick="closeLB()"><span onclick="closeLB()">×</span><img id="lbImg" src=""></div>
 <div class="footer">©️ 2026 SOLO PAINTS • RC: 3894521 • 07043898826<br><a href="admin.html" style="color:#222;text-decoration:none">admin</a></div>
 <a class="float-call" href="tel:+2347043898826">📞 Call Us</a>
