@@ -1154,5 +1154,65 @@ let data={
     const loader = document.getElementById('preloader');
     if(loader) loader.style.display = 'none';
   }, 5000);
+</script>
+<!-- SOLO PAINTS - THEME HINT ARROW (Tailored for your position) -->
+<div id="theme-hint">
+  <span class="hint-arrow">👇</span>
+  <span>Try Dark / Light Mode Here!</span>
+</div>
 
-</script></body></html>
+<style>
+#theme-hint {
+  position: fixed;
+  top: 98px; /* Position just below header, above your toggle */
+  left: 50%;
+  transform: translateX(-10%);
+  background: #ffcc00;
+  color: #000;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: bounceHint 1s infinite;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+#theme-hint .hint-arrow {
+  font-size: 18px;
+  animation: pointUp 0.6s infinite alternate;
+  display: inline-block;
+}
+@keyframes bounceHint {
+  0%, 100% { transform: translateX(-10%) translateY(0); }
+  50% { transform: translateX(-10%) translateY(-5px); }
+}
+@keyframes pointUp {
+  0% { transform: translateY(0) rotate(180deg); }
+  100% { transform: translateY(-3px) rotate(180deg); }
+}
+@media (max-width: 480px) {
+  #theme-hint {
+    left: 42%;
+    font-size: 12px;
+    top: 92px;
+  }
+}
+</style>
+
+<script>
+window.addEventListener('load', () => {
+  const hint = document.getElementById('theme-hint');
+  if(!hint) return;
+  hint.style.display = 'flex';
+  setTimeout(() => {
+    hint.style.transition = '0.5s';
+    hint.style.opacity = '0';
+    setTimeout(()=> hint.remove(), 500);
+  }, 6500);
+});
+</script>
+</body></html>
