@@ -1155,64 +1155,86 @@ let data={
     if(loader) loader.style.display = 'none';
   }, 5000);
 </script>
-<!-- SOLO PAINTS - THEME HINT ARROW (Tailored for your position) -->
 <div id="theme-hint">
-  <span class="hint-arrow">👇</span>
+  <span class="hint-arrow">👆</span>
   <span>Try Dark / Light Mode Here!</span>
 </div>
 
 <style>
-#theme-hint {
-  position: fixed;
-  top: 98px; /* Position just below header, above your toggle */
-  left: 50%;
-  transform: translateX(-10%);
-  background: #ffcc00;
-  color: #000;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 13px;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  animation: bounceHint 1s infinite;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  white-space: nowrap;
-}
-#theme-hint .hint-arrow {
-  font-size: 18px;
-  animation: pointUp 0.6s infinite alternate;
-  display: inline-block;
-}
-@keyframes bounceHint {
-  0%, 100% { transform: translateX(-10%) translateY(0); }
-  50% { transform: translateX(-10%) translateY(-5px); }
-}
-@keyframes pointUp {
-  0% { transform: translateY(0) rotate(180deg); }
-  100% { transform: translateY(-3px) rotate(180deg); }
-}
-@media (max-width: 480px) {
   #theme-hint {
-    left: 42%;
-    font-size: 12px;
-    top: 92px;
+    position: fixed;
+    top: 78px; /* under the header toggle */
+    right: 18px;
+    left: auto;
+    transform: none;
+    background: #ffcc00;
+    color: #000;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    z-index: 99999;
+    display: none; /* hide at first */
+    align-items: center;
+    gap: 6px;
+    animation: bounceHint 1s infinite;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    white-space: nowrap;
   }
-}
+  #theme-hint .hint-arrow {
+    font-size: 16px;
+  }
+  /* small triangle on top pointing to toggle */
+  #theme-hint::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: 30px;
+    width: 12px;
+    height: 12px;
+    background: #ffcc00;
+    transform: rotate(45deg);
+  }
+  @keyframes bounceHint {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @media (max-width: 480px) {
+    #theme-hint {
+      top: 72px;
+      right: 10px;
+      font-size: 11px;
+      padding: 7px 12px;
+    }
+    #theme-hint::before {
+      right: 22px;
+    }
+  }
 </style>
 
 <script>
 window.addEventListener('load', () => {
   const hint = document.getElementById('theme-hint');
   if(!hint) return;
-  hint.style.display = 'flex';
+  
+  // DON'T show on preloader - wait 2.5 sec after page load
   setTimeout(() => {
-    hint.style.transition = '0.5s';
-    hint.style.opacity = '0';
-    setTimeout(()=> hint.remove(), 500);
-  }, 6500);
+    // if preloader still dey, wait small more
+    const preloader = document.getElementById('preloader') || document.querySelector('.preloader');
+    if(preloader && getComputedStyle(preloader).display !== 'none'){
+      setTimeout(() => hint.style.display = 'flex', 1500);
+    } else {
+      hint.style.display = 'flex';
+    }
+    
+    // comot after 6 secs
+    setTimeout(() => {
+      hint.style.transition = '0.5s';
+      hint.style.opacity = '0';
+      setTimeout(()=> hint.remove(), 500);
+    }, 6000);
+    
+  }, 2500);
 });
 </script>
 </body></html>
