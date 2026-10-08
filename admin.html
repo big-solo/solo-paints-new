@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOLO PAINTS - Admin</title>
+    <link rel="icon" href="logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --card: #151515;
+        --text: #fff;
+        --muted: #999;
+        --line: #232323;
+        --accent: #ff6b00;
+        --navy: #0a2540;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Outfit", sans-serif;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        padding: 0;
+      }
+      .top {
+        background: var(--navy);
+        padding: 18px 6%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid var(--accent);
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        font-size: 22px;
+      }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff;
+        padding: 3px;
+      }
+      .wrap {
+        padding: 30px 6%;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+      .stat {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .stat b {
+        font-size: 28px;
+        display: block;
+      }
+      .stat span {
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 2px;
+        font-weight: 700;
+      }
+      .tools {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+      .input {
+        padding: 12px 14px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--text);
+        min-width: 200px;
+      }
+      .btn {
+        padding: 11px 18px;
+        border-radius: 100px;
+        font-weight: 800;
+        font-size: 12px;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-o {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-n {
+        background: var(--card);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+      .table-wrap {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th {
+        background: var(--bg);
+        padding: 14px 12px;
+        text-align: left;
+        color: var(--muted);
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+      td {
+        padding: 14px 12px;
+        border-top: 1px solid var(--line);
+        vertical-align: top;
+      }
+      tr:hover {
+        background: #ffffff05;
+      }
+      .badge {
+        padding: 4px 10px;
+        border-radius: 100px;
+        font-size: 10px;
+        font-weight: 800;
+        display: inline-block;
+      }
+      .new {
+        background: #ff6b00;
+        color: #fff;
+      }
+      .called {
+        background: #0a84ff;
+        color: #fff;
+      }
+      .done {
+        background: #00c853;
+        color: #fff;
+      }
+      .badge-paint {
+        padding: 4px 10px;
+        border-radius: 100px;
+        font-size: 10px;
+        font-weight: 800;
+        display: inline-block;
+        margin-top: 4px;
+      }
+      .paint-emu {
+        background: #1a3a5c;
+        color: #7ab8ff;
+        border: 1px solid #2a5a8c;
+      }
+      .paint-sat {
+        background: #3d1f00;
+        color: #ffb26a;
+        border: 1px solid #6a3a0a;
+      }
+      .paint-both {
+        background: linear-gradient(90deg, #1a3a5c, #3d1f00);
+        color: #fff;
+        border: 1px solid #ff6b00;
+      }
+      .actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .act {
+        padding: 6px 10px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        color: var(--text);
+      }
+      .login {
+        position: fixed;
+        inset: 0;
+        background: #050d1a;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .login-box {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 30px;
+        width: 90%;
+        max-width: 380px;
+        text-align: center;
+      }
+      .login-box input {
+        width: 100%;
+        padding: 14px;
+        margin-top: 12px;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        color: #fff;
+      }
+      @media (max-width: 900px) {
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        table {
+          font-size: 11px;
+        }
+        th,
+        td {
+          padding: 10px 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loginScreen" class="login">
+      <div class="login-box">
+        <img
+          src="logo.png"
+          style="
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #fff;
+            padding: 4px;
+            margin-bottom: 12px;
+          "
+        />
+        <h2>SOLO <span style="color: #ff6b00">PAINTS</span></h2>
+        <p style="color: #999; font-size: 12px; margin-top: 6px">
+          Admin Dashboard - Updated 2026
+        </p>
+        <input
+          id="passInput"
+          type="password"
+          placeholder="Enter password (admin123)"
+        /><button
+          class="btn btn-o"
+          style="width: 100%; margin-top: 14px; padding: 14px"
+          onclick="doLogin()"
+        >
+          LOGIN →
+        </button>
+      </div>
+    </div>
+    <div class="top">
+      <div class="logo">
+        <img src="logo.png" class="logo-img" /> SOLO
+        <span style="color: #ff6b00">PAINTS</span>
+        <small
+          style="
+            font-size: 10px;
+            color: #8a9bb0;
+            letter-spacing: 2px;
+            margin-left: 8px;
+          "
+          >ADMIN v2 - BUCKETS</small
+        >
+      </div>
+      <div style="display: flex; gap: 8px">
+        <a href="index.html" class="btn btn-n">🏠 View Site</a
+        ><button class="btn btn-n" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><b id="totalQ">0</b><span>TOTAL QUOTES</span></div>
+        <div class="stat"><b id="newQ">0</b><span>NEW</span></div>
+        <div class="stat"><b id="calledQ">0</b><span>CALLED</span></div>
+        <div class="stat"><b id="doneQ">0</b><span>CLOSED</span></div>
+      </div>
+      <div class="tools">
+        <input
+          id="search"
+          class="input"
+          placeholder="🔍 Search..."
+          oninput="render()"
+        />
+        <select id="filterStatus" class="input" onchange="render()">
+          <option value="All">All Status</option>
+          <option value="New">New Only</option>
+          <option value="Called">Called</option>
+          <option value="Done">Done</option>
+        </select>
+        <select id="filterPaint" class="input" onchange="render()">
+          <option value="All">All Paint Type</option>
+          <option value="emulsion">Emulsion Only</option>
+          <option value="satin">Satin Only</option>
+          <option value="both">Both</option>
+        </select>
+        <button class="btn btn-n" onclick="exportCSV()">📥 Export CSV</button>
+        <button class="btn btn-n" onclick="clearAll()" style="color: #ff4444">
+          🗑️ Clear All
+        </button>
+      </div>
+      <div class="table-wrap" style="overflow: auto">
+        <table>
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>CLIENT</th>
+              <th>PHONE</th>
+              <th>LOCATION</th>
+              <th>PAINT TYPE / BUCKETS</th>
+              <th>ESTIMATE</th>
+              <th>STATUS</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div
+        id="empty"
+        style="display: none; text-align: center; padding: 40px; color: #999"
+      >
+        No quotes yet
+      </div>
+    </div>
+    <script>
+      const token = localStorage.getItem('solo_token');
+if(!token){ window.location='/login'; }
+// When fetching quotes, use token:
+async function loadQuotes(){
+  const res = await fetch('/api/quotes',{headers:{'Authorization':'Bearer '+token}});
+  if(res.status===401){ window.location='/login'; return; }
+  const data = await res.json();
+  //... your existing code to show table uses `data`
+}
+      const PASS = "admin123";
+      function doLogin() {
+        if (passInput.value === PASS) {
+          localStorage.setItem("solo_admin", "yes");
+          document.getElementById("loginScreen").style.display = "none";
+          render();
+        } else {
+          alert("Wrong password!");
+        }
+      }
+      function logout() {
+        localStorage.removeItem("solo_admin");
+        location.reload();
+      }
+      if (localStorage.getItem("solo_admin") === "yes") {
+        document.getElementById("loginScreen").style.display = "none";
+      }
+      function getAll() {
+        return JSON.parse(localStorage.getItem("solo_quotes") || "[]");
+      }
+      function saveAll(a) {
+        localStorage.setItem("solo_quotes", JSON.stringify(a));
+      }
+      function parsePaintInfo(item) {
+        let details = (item.details || "").toLowerCase();
+        let paintType = item.paintType || "emulsion";
+        if (!item.paintType) {
+          if (details.includes("both")) paintType = "both";
+          else if (details.includes("satin"))
+            paintType = details.includes("emulsion") ? "both" : "satin";
+        }
+        return { paintType };
+      }
+      function render() {
+        let all = getAll();
+        let q = search.value.toLowerCase();
+        let f = filterStatus.value;
+        let fp = filterPaint.value;
+        let filtered = all.filter((x) => {
+          let matchStatus = f === "All" || x.status === f;
+          let matchSearch =
+            !q ||
+            (x.name + x.phone + x.location + x.service + (x.details || ""))
+              .toLowerCase()
+              .includes(q);
+          let info = parsePaintInfo(x);
+          let matchPaint = fp === "All" || info.paintType === fp;
+          return matchStatus && matchSearch && matchPaint;
+        });
+        totalQ.innerText = all.length;
+        newQ.innerText = all.filter((x) => x.status === "New").length;
+        calledQ.innerText = all.filter((x) => x.status === "Called").length;
+        doneQ.innerText = all.filter((x) => x.status === "Done").length;
+        let tbodyEl = document.getElementById("tbody");
+        tbodyEl.innerHTML = "";
+        if (filtered.length === 0) {
+          empty.style.display = "block";
+          return;
+        } else {
+          empty.style.display = "none";
+        }
+        filtered.forEach((item) => {
+          let info = parsePaintInfo(item);
+          let paintLabel =
+            info.paintType === "both"
+              ? "BOTH"
+              : info.paintType === "satin"
+                ? "SATIN"
+                : "EMULSION";
+          let paintClass =
+            info.paintType === "both"
+              ? "paint-both"
+              : info.paintType === "satin"
+                ? "paint-sat"
+                : "paint-emu";
+          let tr = document.createElement("tr");
+          tr.innerHTML = `<td><small style="color:#999">${item.date}</small></td><td><b>${item.name}</b><br><small style="color:#999">${item.service}</small><br><small>Color:${item.color || "-"}</small></td><td><a href="tel:${item.phone}" style="color:#FF6B00;font-weight:700;text-decoration:none">${item.phone}</a></td><td><b>${item.location}</b><br><small>${item.size || ""}</small></td><td><span class="badge-paint ${paintClass}">${paintLabel}</span><br><small style="color:#fff;font-weight:700;margin-top:6px;display:block">${item.buckets || ""}</small><br><small style="color:#999;font-size:10px">${item.paintCost ? "Paint: ₦" + Number(item.paintCost).toLocaleString() : ""} ${item.workCost ? "| Work: ₦" + Number(item.workCost).toLocaleString() : ""}</small></td><td><b style="color:#FF6B00;font-size:15px">${item.estimate || ""}</b><br><small style="color:#999;font-size:11px">${item.details || ""}</small></td><td><span class="badge ${item.status.toLowerCase()}">${item.status}</span></td><td><div class="actions"><a class="act" href="https://wa.me/234${String(item.phone).replace(/^0/, "")}" target="_blank">💬 WA</a><a class="act" href="tel:${item.phone}">📞 Call</a><select class="act" onchange="setStatus(${item.id},this.value)"><option>Status</option><option value="New">New</option><option value="Called">Called</option><option value="Done">Done</option></select><button class="act" onclick="delQ(${item.id})" style="color:#ff4444">Del</button></div></td>`;
+          tbodyEl.appendChild(tr);
+        });
+      }
+      function setStatus(id, status) {
+        if (!status) return;
+        let all = getAll();
+        let idx = all.findIndex((x) => x.id === id);
+        if (idx > -1) {
+          all[idx].status = status;
+          saveAll(all);
+          render();
+        }
+      }
+      function delQ(id) {
+        if (!confirm("Delete?")) return;
+        let all = getAll().filter((x) => x.id !== id);
+        saveAll(all);
+        render();
+      }
+      function clearAll() {
+        if (!confirm("Clear ALL?")) return;
+        localStorage.removeItem("solo_quotes");
+        render();
+      }
+      function exportCSV() {
+        let all = getAll();
+        if (!all.length) {
+          alert("No data");
+          return;
+        }
+        let csv =
+          "Date,Name,Phone,Location,Service,Size,Color,Estimate,PaintType,Buckets,PaintCost,WorkCost,Details,Status\n" +
+          all
+            .map(
+              (x) =>
+                `"${x.date}","${x.name}","${x.phone}","${x.location}","${x.service}","${x.size}","${x.color}","${x.estimate}","${x.paintType || ""}","${(x.buckets || "").replace(/"/g, "")}","${x.paintCost || ""}","${x.workCost || ""}","${(x.details || "").replace(/"/g, "")}","${x.status}"`,
+            )
+            .join("\n");
+        let blob = new Blob([csv], { type: "text/csv" });
+        let a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "solo-paints-quotes-v2.csv";
+        a.click();
+      }
+      render();
+    </script>
+  </body>
+</html>

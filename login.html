@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><head><title>Solo Admin Login</title>
+<style>body{background:#111;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;color:#fff}.box{background:#222;padding:30px;border-radius:10px;width:300px} input{width:100%;padding:10px;margin:10px 0;border-radius:5px;border:none} button{width:100%;padding:10px;background:#ff6600;color:#fff;border:none;border-radius:5px;cursor:pointer}</style>
+</head><body>
+<div class="box">
+<h2>SOLO Admin Login</h2>
+<input id="u" placeholder="Username">
+<input id="p" type="password" placeholder="Password">
+<button onclick="login()">LOGIN</button>
+<p id="msg" style="color:red"></p>
+</div>
+<script>
+async function login(){
+  const res = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:document.getElementById('u').value,password:document.getElementById('p').value})});
+  const data = await res.json();
+  if(data.success){ localStorage.setItem('solo_token', data.token); window.location='/admin'; }
+  else{ document.getElementById('msg').innerText=data.error; }
+}
+</script>
+</body></html>

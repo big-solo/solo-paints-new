@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOLO PAINTS</title>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --card: #151515;
+        --text: #fff;
+        --muted: #999;
+        --line: #232323;
+        --nav: #0a0a0af5;
+        --accent: #ff6b00;
+        --bg2: #111;
+      }
+      [data-theme="light"] {
+        --bg: #fdfdfb;
+        --card: #fff;
+        --text: #111;
+        --muted: #666;
+        --line: #e9e9e9;
+        --nav: #fffffff5;
+        --bg2: #f6f6f3;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Outfit", sans-serif;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+      #preloader {
+        position: fixed;
+        inset: 0;
+        background: #050d1a;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.8s;
+      }
+      #preloader.hide {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .pre-logo {
+        font-weight: 900;
+        font-size: 42px;
+        color: #fff;
+      }
+      .pre-logo span {
+        color: var(--accent);
+      }
+      .pre-bar {
+        width: 140px;
+        height: 3px;
+        background: #ffffff1a;
+        border-radius: 10px;
+        margin-top: 24px;
+        overflow: hidden;
+      }
+      .pre-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+        animation: fill 2.2s ease forwards;
+      }
+      @keyframes fill {
+        to {
+          width: 100%;
+        }
+      }
+      .top {
+        background: #0a2540;
+        color: #fff;
+        padding: 12px 6%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 700;
+        border-bottom: 3px solid var(--accent);
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        background: var(--nav);
+        backdrop-filter: blur(14px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 6%;
+        border-bottom: 1px solid var(--line);
+      }
+      .logo {
+        font-weight: 900;
+        font-size: 26px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo span {
+        color: var(--accent);
+      }
+      .logo small {
+        display: block;
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: var(--muted);
+      }
+      .logo-img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 2px solid #ffffff22;
+        background: #fff;
+        object-fit: cover;
+      }
+      .btn {
+        padding: 12px 22px;
+        border-radius: 100px;
+        font-weight: 800;
+        font-size: 13px;
+        cursor: pointer;
+        border: 1px solid var(--text);
+        background: var(--text);
+        color: var(--bg);
+        text-decoration: none;
+        display: inline-block;
+      }
+      .btn-o {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .toggle {
+        width: 50px;
+        height: 28px;
+        background: var(--line);
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        padding: 3px;
+        cursor: pointer;
+      }
+      .dot {
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+      [data-theme="light"] .dot {
+        transform: translateX(22px);
+        background: #0a2540;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 30px;
+        padding: 60px 6%;
+        position: relative;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        opacity: 0.07;
+      }
+      .hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-c {
+        position: relative;
+        z-index: 2;
+      }
+      .hero-c h1 {
+        font-family: "Playfair Display";
+        font-size: 50px;
+        line-height: 0.95;
+      }
+      .hero-c h1 span {
+        color: var(--accent);
+      }
+      .lead {
+        color: var(--muted);
+        margin: 14px 0;
+        font-size: 16px;
+      }
+      .trust {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+      .trust-item {
+        font-size: 11px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        padding: 8px 12px;
+        border-radius: 100px;
+        font-weight: 700;
+      }
+      .wall-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+      }
+      .wall {
+        height: 165px;
+        border-radius: 16px;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        border: 1px solid var(--line);
+      }
+      .colors {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .c-dot {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid transparent;
+      }
+      .c-dot.active {
+        border-color: var(--text);
+        transform: scale(1.15);
+      }
+      section {
+        padding: 65px 6%;
+      }
+      .label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: var(--accent);
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      .tt {
+        font-family: "Playfair Display";
+        font-size: 34px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 22px;
+      }
+      .port {
+        height: 280px;
+        border-radius: 18px;
+        background: #222;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: flex-end;
+        padding: 16px;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .port::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.85),
+          rgba(0, 0, 0, 0.1)
+        );
+      }
+      .port b {
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        font-size: 13px;
+      }
+      .calc {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 26px;
+        display: grid;
+        grid-template-columns: 1fr 0.9fr;
+        gap: 24px;
+        margin-top: 24px;
+      }
+      .input {
+        width: 100%;
+        padding: 12px;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--text);
+        margin-top: 6px;
+      }
+      .lbl {
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: var(--muted);
+        font-weight: 700;
+        margin-top: 12px;
+        display: block;
+      }
+      .result {
+        background: var(--bg);
+        border: 1px dashed var(--accent);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .quote {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 26px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+        margin-top: 24px;
+      }
+      .footer {
+        background: #050d1a;
+        color: #8a9bb0;
+        padding: 35px 6%;
+        text-align: center;
+        font-size: 12px;
+      }
+      .float {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        background: #25d366;
+        color: #fff;
+        padding: 13px 18px;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 800;
+        z-index: 999;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .float-call {
+        position: fixed;
+        bottom: 76px;
+        right: 18px;
+        background: #0a2540;
+        color: #fff;
+        padding: 13px 18px;
+        border-radius: 100px;
+        text-decoration: none;
+        font-weight: 800;
+        z-index: 999;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        border: 2px solid #ffffff22;
+      }
+      .rev-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 24px;
+      }
+      .rev {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 22px;
+        position: relative;
+      }
+      .rev-stars {
+        color: #ffc400;
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+      .rev p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+        margin-top: 10px;
+      }
+      .rev-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+      }
+      .rev-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        color: var(--accent);
+      }
+      .rev b {
+        font-size: 14px;
+      }
+      .rev small {
+        color: var(--muted);
+        font-size: 11px;
+      }
+      #lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      #lightbox.show {
+        display: flex;
+      }
+      #lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+      }
+      #lightbox span {
+        position: absolute;
+        top: 20px;
+        right: 28px;
+        color: #fff;
+        font-size: 32px;
+        cursor: pointer;
+        font-weight: 900;
+      }
+      @media (max-width: 900px) {
+        .hero,
+        .grid3,
+        .calc,
+        .quote,
+        .rev-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-c h1 {
+          font-size: 34px;
+        }
+      }
+      .qtystyle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        padding: 4px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <img
+        src="logo.png"
+        alt="SOLO PAINTS"
+        style="
+          width: 92px;
+          height: 92px;
+          border-radius: 50%;
+          border: 3px solid #ffffff14;
+          margin-bottom: 14px;
+          background: #fff;
+          padding: 6px;
+        "
+      />
+      <div class="pre-logo">SOLO <span>PAINTS</span></div>
+      <div
+        style="
+          font-size: 10px;
+          letter-spacing: 5px;
+          color: #8a9bb0;
+          margin-top: 6px;
+        "
+      >
+        PREMIUM CONTRACTORS • LAGOS
+      </div>
+      <div class="pre-bar"><div class="pre-fill"></div></div>
+      <div
+        style="
+          font-size: 11px;
+          color: #8a9bb0;
+          margin-top: 12px;
+          letter-spacing: 2px;
+        "
+      >
+        LOADING REAL PROJECTS...
+      </div>
+    </div>
+    <div class="top">
+      <span>✅ CAC REGISTERED • REAL PROJECTS</span
+      ><span
+        >📞
+        <a href="tel:+2347043898826" style="color: #fff; text-decoration: none"
+          >07043898826</a
+        ></span
+      >
+    </div>
+    <header>
+      <div class="logo">
+        <img src="logo.png" class="logo-img" alt="SOLO PAINTS logo" />
+        <div>SOLO <span>PAINTS</span><small>PREMIUM CONTRACTORS</small></div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center">
+        <div class="toggle" onclick="toggleTheme()">
+          <div class="dot"></div>
+        </div>
+        <a
+          href="tel:+2347043898826"
+          class="btn"
+          style="background: #0a2540; color: #fff; border-color: #0a2540"
+          >📞 Call</a
+        ><a href="#quote" class="btn btn-o">Get Quote</a>
+      </div>
+    </header>
+  </body>
+</html>
+<div class="hero">
+  <div class="hero-bg">
+    <img src="project2.jpg" onerror="this.style.display = 'none'" />
+  </div>
+  <div class="hero-c">
+    <div class="label">EST. 2016 • OUR REAL WORKS</div>
+    <h1>We Don't Just Paint, We <span>Transform</span></h1>
+    <p class="lead">
+      From small shops to luxury duplexes - see our real projects below.
+    </p>
+    <div class="trust">
+      <div class="trust-item">✅ Real Photos</div>
+      <div class="trust-item">🛡️ 6 Months Guarantee</div>
+      <div class="trust-item">💰 Pay Small Small</div>
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap">
+      <a href="#works" class="btn btn-o">See Works</a
+      ><a href="tel:+2347043898826" class="btn">📞 Call Now</a
+      ><a href="#quote" class="btn">Get Quote</a>
+    </div>
+  </div>
+  <div class="wall-card">
+    <h3 style="font-size: 14px">🎨 Wall Preview</h3>
+    <div id="wall" class="wall" style="background: #e8dccf; color: #111">
+      WARM WHITE
+    </div>
+    <div class="colors" id="colorList"></div>
+  </div>
+</div>
+<section id="works">
+  <div class="label">REAL PROJECTS - NO FILTER</div>
+  <h2 class="tt">Recent Deliveries</h2>
+  <p style="color: var(--muted); font-size: 13px; margin-top: 6px">
+    Click picture to view full screen
+  </p>
+  <div class="grid3">
+    <div
+      class="port"
+      style="background-image: url(&quot;project1.jpg&quot;)"
+      onclick="openLB('project1.jpg')"
+    >
+      <b>👷 Team On Site</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project2.jpg&quot;)"
+      onclick="openLB('project2.jpg')"
+    >
+      <b>🏢 Luxury Duplex - Lekki</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project3.jpg&quot;)"
+      onclick="openLB('project3.jpg')"
+    >
+      <b>🏘️ Green Estate - 4 Units</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project4.jpg&quot;)"
+      onclick="openLB('project4.jpg')"
+    >
+      <b>🏠 Modern Duplex - Ajah</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project5.jpg&quot;)"
+      onclick="openLB('project5.jpg')"
+    >
+      <b>🏡 Bungalow - Ikorodu</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project6.jpg&quot;)"
+      onclick="openLB('project6.jpg')"
+    >
+      <b>🎨 Quality Materials</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project7.jpg&quot;)"
+      onclick="openLB('project7.jpg')"
+    >
+      <b>✨ Luxury Bungalow</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project8.jpg&quot;)"
+      onclick="openLB('project8.jpg')"
+    >
+      <b>🏠 Bungalow Side View</b>
+    </div>
+    <div
+      class="port"
+      style="background-image: url(&quot;project9.jpg&quot;)"
+      onclick="openLB('project9.jpg')"
+    >
+      <b>🎯 Modern Design</b>
+    </div>
+  </div>
+</section>
+<section
+  id="reviews"
+  style="
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  "
+>
+  <div class="label">CLIENT REVIEWS - REAL VOICES</div>
+  <h2 class="tt">What Our Clients Say</h2>
+  <p style="color: var(--muted); font-size: 13px; margin-top: 6px">
+    Verified projects across Lagos • 4.9/5 Average Rating
+  </p>
+  <div class="rev-grid">
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "I had my doubts before contacting SOLO PAINTS, but I never expected
+        such professionalism and beauty. The green and lemon combination for my
+        Ejigbo house came out even more beautiful than I imagined. The finishing
+        is flawless."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">MO</div>
+        <div>
+          <b>Mrs. Olumakin</b><br /><small
+            >Ejigbo • Green & Lemon Bungalow • Jan 2026</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "From quotation to final coating, everything was professional. They
+        arrived early, protected my furniture, and delivered a presidential
+        finish. My Lekki duplex looks like a brand new estate."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">AT</div>
+        <div>
+          <b>Mr. Adebayo T.</b><br /><small
+            >Lekki Phase 1 • Luxury Duplex • Dec 2025</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "Honest pricing, no hidden charges. The team explained the paint
+        calculator clearly and allowed me to pay in two installments. Very
+        respectful and clean workers."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">CB</div>
+        <div>
+          <b>Chidinma B.</b><br /><small
+            >Ikeja • 3 Bedroom Flat • Nov 2025</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "SOLO PAINTS transformed my small shop in Yaba. Customers now stop to
+        compliment the exterior. The orange and white blend is sharp and
+        durable. Fast delivery too."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">SK</div>
+        <div>
+          <b>Samuel K.</b><br /><small>Yaba • Shop Painting • Oct 2025</small>
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "I have used many painters before, but SOLO PAINTS is different. They
+        used premium paint as promised, no paint smell after 24 hours, and the
+        walls are perfectly smooth."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">FE</div>
+        <div>
+          <b>Funke E.</b><br /><small
+            >Surulere • Interior Repaint • Sep 2025</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "Excellent attention to detail. They fixed my POP edges before painting
+        and gave me 6 months guarantee in writing. My Ajah duplex has never
+        looked this luxurious."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">JO</div>
+        <div>
+          <b>Mr. John O.</b><br /><small>Ajah • Modern Duplex • Aug 2025</small>
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "Very reliable team. They completed my 4 units in Green Estate within 5
+        days as agreed. No story, no delay. I have already referred them to two
+        landlords."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">EM</div>
+        <div>
+          <b>Estate Manager</b><br /><small
+            >Ikorodu • 4 Units Project • Jul 2025</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p>
+        "Professional, affordable, and truly premium. The color preview tool on
+        their website helped me choose correctly. Final result matched the
+        preview 100%. Highly recommended."
+      </p>
+      <div class="rev-head">
+        <div class="rev-avatar">RI</div>
+        <div>
+          <b>Rahman I.</b><br /><small
+            >Victoria Island • Office Complex • Jun 2025</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 28px">
+    <a href="#quote" class="btn btn-o">Get Your Own Transformation →</a>
+  </div>
+</section>
+<section id="calc">
+  <div class="label">CALCULATOR - YOUR REAL PRICE</div>
+  <h2 class="tt">House & Shop Estimator</h2>
+  <div class="calc">
+    <div>
+      <label class="lbl">BUILDING TYPE</label
+      ><select id="roomType" class="input" onchange="doCalc()">
+        <optgroup label="🏪 SHOPS">
+          <option value="25">Small Shop / Kiosk</option>
+          <option value="35">Container Shop</option>
+          <option value="45">Medium Shop</option>
+          <option value="70">Big Shop / 2 Shops</option>
+          <option value="90">Supermarket</option>
+        </optgroup>
+        <optgroup label="🏠 HOUSES">
+          <option value="60">Self Contain</option>
+          <option value="120" selected>1 Bedroom Flat</option>
+          <option value="180">2 Bedroom Flat</option>
+          <option value="250">3 Bedroom Flat</option>
+          <option value="350">4 Bedroom / Duplex</option>
+          <option value="450">Full House</option>
+        </optgroup>
+        <optgroup label="🏢 EXTERIOR & ALL">
+          <option value="180">Exterior Small</option>
+          <option value="320">Exterior Big</option>
+          <option value="400">All House 2 Bed</option>
+          <option value="550">All House 3 Bed</option>
+          <option value="750">All House 4-5 Bed</option>
+        </optgroup>
+      </select>
+      <label class="lbl">COATS</label
+      ><select id="coats" class="input" onchange="doCalc()">
+        <option value="1">1 Coat</option>
+        <option value="2" selected>2 Coats (Recommended)</option>
+        <option value="3">3 Coats</option>
+      </select>
+      <label class="lbl">PAINT TYPE</label>
+      <div style="display: flex; gap: 8px; margin-top: 6px">
+        <button
+          type="button"
+          onclick="setPaintType('emulsion')"
+          id="btnEmu"
+          class="btn btn-o"
+          style="flex: 1"
+        >
+          Emulsion
+        </button>
+        <button
+          type="button"
+          onclick="setPaintType('satin')"
+          id="btnSat"
+          class="btn"
+          style="flex: 1; background: var(--card); color: var(--text)"
+        >
+          Satin
+        </button>
+        <button
+          type="button"
+          onclick="setPaintType('both')"
+          id="btnBoth"
+          class="btn"
+          style="flex: 1; background: var(--card); color: var(--text)"
+        >
+          Both
+        </button>
+      </div>
+      <div
+        id="emulsionBox"
+        style="
+          margin-top: 14px;
+          border: 1px solid var(--line);
+          border-radius: 12px;
+          padding: 12px;
+        "
+      >
+        <b style="font-size: 12px; letter-spacing: 1px">EMULSION</b>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+          "
+        >
+          <span style="font-size: 13px">20L Bucket - ₦25,000</span>
+          <div class="qtystyle">
+            <button
+              type="button"
+              onclick="chgQty('e20', -1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              -</button
+            ><b id="q_e20" style="min-width: 20px; text-align: center">1</b
+            ><button
+              type="button"
+              onclick="chgQty('e20', 1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+          "
+        >
+          <span style="font-size: 13px">5L Bucket - ₦5,000</span>
+          <div class="qtystyle">
+            <button
+              type="button"
+              onclick="chgQty('e5', -1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              -</button
+            ><b id="q_e5" style="min-width: 20px; text-align: center">0</b
+            ><button
+              type="button"
+              onclick="chgQty('e5', 1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        id="satinBox"
+        style="
+          margin-top: 14px;
+          border: 1px solid var(--line);
+          border-radius: 12px;
+          padding: 12px;
+          display: none;
+        "
+      >
+        <b style="font-size: 12px; letter-spacing: 1px">SATIN (SARTINE)</b>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+          "
+        >
+          <span style="font-size: 13px">20L Bucket - ₦90,000</span>
+          <div class="qtystyle">
+            <button
+              type="button"
+              onclick="chgQty('s20', -1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              -</button
+            ><b id="q_s20" style="min-width: 20px; text-align: center">0</b
+            ><button
+              type="button"
+              onclick="chgQty('s20', 1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+          "
+        >
+          <span style="font-size: 13px">5L Bucket - ₦18,000</span>
+          <div class="qtystyle">
+            <button
+              type="button"
+              onclick="chgQty('s5', -1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              -</button
+            ><b id="q_s5" style="min-width: 20px; text-align: center">0</b
+            ><button
+              type="button"
+              onclick="chgQty('s5', 1)"
+              class="btn"
+              style="padding: 4px 10px"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="result">
+      <h4 style="color: var(--accent); font-size: 11px; letter-spacing: 2px">
+        YOUR ESTIMATE - REAL PRICE
+      </h4>
+      <div style="margin-top: 12px; line-height: 2.1; font-size: 14px">
+        <div style="display: flex; justify-content: space-between">
+          <span>Area:</span><b id="rArea">120 sqm</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Paint Needed:</span
+          ><b id="rLiters" style="color: var(--accent)">20 L</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Buckets Chosen:</span><b id="rBuckets">1 x 20L</b>
+        </div>
+        <hr
+          style="
+            border: none;
+            border-top: 1px solid var(--line);
+            margin: 10px 0;
+          "
+        />
+        <div style="display: flex; justify-content: space-between">
+          <span>Paint Cost:</span><b id="rPaint">₦25k</b>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <span>Workmanship:</span><b id="rWork">₦90k</b>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            font-weight: 900;
+            font-size: 18px;
+          "
+        >
+          <span>TOTAL:</span
+          ><b id="rTotal" style="color: var(--accent)">₦115k</b>
+        </div>
+      </div>
+      <button
+        class="btn btn-o"
+        style="width: 100%; margin-top: 12px"
+        onclick="useCalc()"
+      >
+        USE IN QUOTE →
+      </button>
+      <p
+        style="
+          font-size: 11px;
+          color: var(--muted);
+          margin-top: 8px;
+          text-align: center;
+        "
+      >
+        Labour + Paint Buckets = Total
+      </p>
+    </div>
+  </div>
+</section>
+<section id="quote"><div class="label">GET QUOTATION</div><h2 class="tt">Request Free Quotation</h2><div class="quote"><form id="quoteForm"><label class="lbl">FULL NAME *</label><input id="qName" class="input" required><label class="lbl">PHONE *</label><input id="qPhone" class="input" required><label class="lbl">LOCATION *</label><input id="qLocation" class="input" required><label class="lbl">SERVICE</label><select id="qService" class="input"><option>Interior</option><option>Exterior</option><option>All House</option><option>Shop - Budget</option><option>POP + Painting</option></select><label class="lbl">BUILDING</label><input id="qSize" class="input"><label class="lbl">COLOR</label><input id="qColor" class="input"><label class="lbl">ESTIMATE</label><input id="qEstimate" class="input" readonly><label class="lbl">DETAILS</label><textarea id="qDetails" class="input" style="height:60px"></textarea><div id="formMsg" style="display:none;margin-top:14px;padding:18px;border-radius:14px;text-align:center;font-weight:800;font-size:14px"></div><button type="submit" id="submitBtn" class="btn btn-o" style="width:100%;margin-top:14px;padding:15px">SUBMIT →</button></form><div><div class="card" style="background:var(--bg)"><h3>Why SOLO PAINTS?</h3><p style="color:var(--muted);margin-top:10px">✅ Real Photos Above</p><p style="color:var(--muted)">✅ CAC Registered</p><p style="color:var(--muted)">✅ Pay Small Small</p><p style="color:var(--muted)">✅ 6 Months Guarantee</p><div style="margin-top:14px;padding:12px;background:var(--card);border-radius:12px;border:1px solid var(--line)"><b style="font-size:13px">📞 Contact</b><p style="color:var(--muted);font-size:13px">07043898826<br>sammiejay111@gmail.com</p><div style="display:flex;gap:8px;margin-top:10px"><a href="tel:+2347043898826" style="background:var(--accent);color:#fff;padding:8px 14px;border-radius:100px;text-decoration:none;font-weight:800;font-size:12px">📞 Call Now</a></div></div></div></div></div></section>
+<div id="lightbox" onclick="closeLB()"><span onclick="closeLB()">×</span><img id="lbImg" src=""></div>
+<div class="footer">©️ 2026 SOLO PAINTS • RC: 3894521 • 07043898826<br><a href="admin.html" style="color:#222;text-decoration:none">admin</a></div>
+<a class="float-call" href="tel:+2347043898826">📞 Call Us</a>
+<a class="float" href="https://wa.me/2349019885765">💬 WhatsApp</a>
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('preloader').classList.add('hide')},1800)});
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('solo-theme',t)}
+function toggleTheme(){let c=document.documentElement.getAttribute('data-theme')||'dark';applyTheme(c==='dark'?'light':'dark')}
+applyTheme(localStorage.getItem('solo-theme')||'dark');
+const colors=[{n:'Warm White',h:'#E8DCCF'},{n:'White',h:'#FFF'},{n:'Grey',h:'#D1D5DB'},{n:'Black',h:'#111'},{n:'Blue',h:'#1E3A8A'},{n:'Orange',h:'#FF6B00'},{n:'Pink',h:'#F9A8D4'},{n:'Mint',h:'#A7F3D0'},{n:'Yellow',h:'#FDE047'}];
+const list=document.getElementById('colorList'),wall=document.getElementById('wall');
+colors.forEach((c,i)=>{let d=document.createElement('div');d.className='c-dot'+(i===0?' active':'');d.style.background=c.h;d.onclick=()=>{wall.style.background=c.h;wall.innerText=c.n.toUpperCase();wall.style.color=['#FFF','#E8DCCF','#D1D5DB','#FDE047'].includes(c.h)?'#111':'#fff';document.querySelectorAll('.c-dot').forEach(x=>x.classList.remove('active'));d.classList.add('active');qColor.value=c.n};list.appendChild(d);});
+const PRICE={e20:25000,e5:5000,s20:90000,s5:18000};
+const laborPrices={"Small Shop / Kiosk":25000,"Container Shop":28000,"Medium Shop":30000,"Big Shop / 2 Shops":35000,"Supermarket":50000,"Self Contain":50000,"1 Bedroom Flat":90000,"2 Bedroom Flat":150000,"3 Bedroom Flat":220000,"4 Bedroom / Duplex":270000,"Full House":350000,"Exterior Small":70000,"Exterior Big":90000,"All House 2 Bed":220000,"All House 3 Bed":320000,"All House 4-5 Bed":390000};
+let qty={e20:1,e5:0,s20:0,s5:0};let paintType='emulsion';
+function setPaintType(t){paintType=t;const emuBtn=document.getElementById('btnEmu');const satBtn=document.getElementById('btnSat');const bothBtn=document.getElementById('btnBoth');[emuBtn,satBtn,bothBtn].forEach(b=>{b.style.background='var(--card)';b.style.color='var(--text)';b.classList.remove('btn-o');});let active=t==='emulsion'?emuBtn:t==='satin'?satBtn:bothBtn;active.style.background='var(--accent)';active.style.color='#fff';active.classList.add('btn-o');document.getElementById('emulsionBox').style.display=(t==='satin')?'none':'block';document.getElementById('satinBox').style.display=(t==='emulsion')?'none':'block';if(t==='both'){document.getElementById('emulsionBox').style.display='block';document.getElementById('satinBox').style.display='block';}doCalc();}
+function chgQty(k,d){qty[k]=Math.max(0,qty[k]+d);document.getElementById('q_'+k).innerText=qty[k];doCalc();}
+function doCalc(){let roomText=roomType.options[roomType.selectedIndex].text.trim();let base=parseFloat(roomType.value)||120;let coatsV=parseInt(coats.value)||2;let area=base;let totalArea=area*coatsV;let liters=totalArea/12;let paintCost=0;let totalLitersChosen=0;let breakdown=[];if(paintType==='emulsion'||paintType==='both'){if(qty.e20>0){paintCost+=qty.e20*PRICE.e20;totalLitersChosen+=qty.e20*20;breakdown.push(qty.e20+'x20L Emu');}if(qty.e5>0){paintCost+=qty.e5*PRICE.e5;totalLitersChosen+=qty.e5*5;breakdown.push(qty.e5+'x5L Emu');}}if(paintType==='satin'||paintType==='both'){if(qty.s20>0){paintCost+=qty.s20*PRICE.s20;totalLitersChosen+=qty.s20*20;breakdown.push(qty.s20+'x20L Satin');}if(qty.s5>0){paintCost+=qty.s5*PRICE.s5;totalLitersChosen+=qty.s5*5;breakdown.push(qty.s5+'x5L Satin');}}let work=laborPrices[roomText]||90000;if(coatsV===3)work=Math.round(work*1.25);if(coatsV===1)work=Math.round(work*0.85);let total=paintCost+work;rArea.innerText=area+' sqm';rLiters.innerText=liters.toFixed(1)+' L needed';rBuckets.innerText=breakdown.length?breakdown.join(' + ')+' = '+totalLitersChosen+'L':totalLitersChosen+'L';rPaint.innerText='₦'+paintCost.toLocaleString();rWork.innerText='₦'+work.toLocaleString();rTotal.innerText='₦'+total.toLocaleString();window._last={room:roomText,area,liters:liters.toFixed(1),buckets:totalLitersChosen,paintCost,work,total,qty,paintType,breakdown:breakdown.join(', ')};}
+function useCalc(){doCalc();let c=window._last;qSize.value=c.room+' ('+c.area+' sqm)';qEstimate.value='₦'+c.total.toLocaleString();qDetails.value=c.room+', '+c.area+'sqm, Needed '+c.liters+'L, Chosen '+c.breakdown+' ('+c.buckets+'L), Paint ₦'+c.paintCost.toLocaleString()+', Work ₦'+c.work.toLocaleString()+', Total ₦'+c.total.toLocaleString()+', Type: '+c.paintType;document.getElementById('quote').scrollIntoView({behavior:'smooth'});}doCalc();
+function openLB(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('show')}function closeLB(){document.getElementById('lightbox').classList.remove('show')}
+document.getElementById('quoteForm').addEventListener('submit', async function(e){e.preventDefault();const btn=document.getElementById('submitBtn');const msg=document.getElementById('formMsg');btn.innerText='SENDING...';btn.disabled=true;msg.style.display='none';let c=window._last;
+let data={
+ id:Date.now(),
+ name:qName.value,
+ phone:qPhone.value,
+ location:qLocation.value,
+ service:qService.value,
+ size:qSize.value,
+ color:qColor.value,
+ estimate:qEstimate.value,
+ details:qDetails.value,
+ paintType:c.paintType,
+ buckets:c.breakdown+' = '+c.buckets+'L',
+ paintCost:c.paintCost,
+ workCost:c.work,
+ date:new Date().toLocaleString(),
+ status:'New'
+};  let all=JSON.parse(localStorage.getItem('solo_quotes')||'[]');
+  all.unshift(data);
+  localStorage.setItem('solo_quotes',JSON.stringify(all));
+  try{
+    const fd=new FormData();
+    fd.append('Name',data.name);
+    fd.append('Phone',data.phone);
+    fd.append('Location',data.location);
+    fd.append('Service',data.service);
+    fd.append('Size',data.size);
+    fd.append('Color',data.color);
+    fd.append('Estimate',data.estimate);
+    fd.append('PaintType',data.paintType);
+    fd.append('Buckets',data.buckets);
+    fd.append('PaintCost',data.paintCost);
+    fd.append('WorkCost',data.workCost);
+    fd.append('Details',data.details);
+    fd.append('_subject','NEW QUOTE - '+data.name);
+    fd.append('_template','table');
+    fd.append('_captcha','false');
+  // 1. First save to YOUR MongoDB
+  try {
+    const saveToDB = await fetch('/api/quote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await saveToDB.json();
+    console.log("DB Result:", result);
+  } catch(e) {
+    console.log("DB Error but continue:", e);
+  }
+
+  // 2. Then also send to email (so you get both)
+  await fetch('https://formsubmit.co/ajax/sammiejay111@gmail.com',{method:'POST',
+    body: fd
+  });
+
+  document.getElementById('formMsg').style.display='block';
+  document.getElementById('formMsg').style.background='#00c853';
+  document.getElementById('formMsg').style.color='#fff';
+  document.getElementById('formMsg').innerHTML='✅ SUCCESS! We will call you within 30 minutes. Saved to database!';
+  document.getElementById('quoteForm').reset();
+  qty={e20:1,e5:0,s20:0,s5:0};
+  doCalc();
+  btn.innerText='✓ SENT';
+  setTimeout(()=>{btn.innerText='SUBMIT →';btn.disabled=false;},4000);
+  }catch(err){
+    document.getElementById('formMsg').style.display='block';
+    document.getElementById('formMsg').innerHTML='✅ Saved locally';
+    document.getElementById('quoteForm').reset();
+    btn.disabled=false;
+  }
+});
+</script></body></html>
+</script></body></html>
