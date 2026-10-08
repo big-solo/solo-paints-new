@@ -828,230 +828,90 @@
       </select>
       <label class="lbl">PAINT TYPE</label>
       <div style="display: flex; gap: 8px; margin-top: 6px">
-        <button
-          type="button"
-          onclick="setPaintType('emulsion')"
-          id="btnEmu"
-          class="btn btn-o"
-          style="flex: 1"
-        >
-          Emulsion
-        </button>
-        <button
-          type="button"
-          onclick="setPaintType('satin')"
-          id="btnSat"
-          class="btn"
-          style="flex: 1; background: var(--card); color: var(--text)"
-        >
-          Satin
-        </button>
-        <button
-          type="button"
-          onclick="setPaintType('both')"
-          id="btnBoth"
-          class="btn"
-          style="flex: 1; background: var(--card); color: var(--text)"
-        >
-          Both
-        </button>
+        <button type="button" onclick="setPaintType('emulsion')" id="btnEmu" class="btn btn-o" style="flex: 1">Emulsion</button>
+        <button type="button" onclick="setPaintType('satin')" id="btnSat" class="btn" style="flex: 1; background: var(--card); color: var(--text)">Satin</button>
+        <button type="button" onclick="setPaintType('both')" id="btnBoth" class="btn" style="flex: 1; background: var(--card); color: var(--text)">Both</button>
       </div>
-      <div
-        id="emulsionBox"
-        style="
-          margin-top: 14px;
-          border: 1px solid var(--line);
-          border-radius: 12px;
-          padding: 12px;
-        "
-      >
+      <div id="emulsionBox" style="margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; padding: 12px;">
         <b style="font-size: 12px; letter-spacing: 1px">EMULSION</b>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-          "
-        >
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
           <span style="font-size: 13px">20L Bucket - ₦25,000</span>
           <div class="qtystyle">
-            <button
-              type="button"
-              onclick="chgQty('e20', -1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              -</button
-            ><b id="q_e20" style="min-width: 20px; text-align: center">1</b
-            ><button
-              type="button"
-              onclick="chgQty('e20', 1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              +
-            </button>
+            <button type="button" onclick="chgQty('e20', -1)" class="btn" style="padding: 4px 10px">-</button><b id="q_e20" style="min-width: 20px; text-align: center">1</b><button type="button" onclick="chgQty('e20', 1)" class="btn" style="padding: 4px 10px">+</button>
           </div>
         </div>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-          "
-        >
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
           <span style="font-size: 13px">5L Bucket - ₦5,000</span>
           <div class="qtystyle">
-            <button
-              type="button"
-              onclick="chgQty('e5', -1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              -</button
-            ><b id="q_e5" style="min-width: 20px; text-align: center">0</b
-            ><button
-              type="button"
-              onclick="chgQty('e5', 1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              +
-            </button>
+            <button type="button" onclick="chgQty('e5', -1)" class="btn" style="padding: 4px 10px">-</button><b id="q_e5" style="min-width: 20px; text-align: center">0</b><button type="button" onclick="chgQty('e5', 1)" class="btn" style="padding: 4px 10px">+</button>
           </div>
         </div>
       </div>
-      <div
-        id="satinBox"
-        style="
-          margin-top: 14px;
-          border: 1px solid var(--line);
-          border-radius: 12px;
-          padding: 12px;
-          display: none;
-        "
-      >
+      <div id="satinBox" style="margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: none;">
         <b style="font-size: 12px; letter-spacing: 1px">SATIN (SARTINE)</b>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-          "
-        >
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
           <span style="font-size: 13px">20L Bucket - ₦90,000</span>
           <div class="qtystyle">
-            <button
-              type="button"
-              onclick="chgQty('s20', -1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              -</button
-            ><b id="q_s20" style="min-width: 20px; text-align: center">0</b
-            ><button
-              type="button"
-              onclick="chgQty('s20', 1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              +
-            </button>
+            <button type="button" onclick="chgQty('s20', -1)" class="btn" style="padding: 4px 10px">-</button><b id="q_s20" style="min-width: 20px; text-align: center">0</b><button type="button" onclick="chgQty('s20', 1)" class="btn" style="padding: 4px 10px">+</button>
           </div>
         </div>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-          "
-        >
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
           <span style="font-size: 13px">5L Bucket - ₦18,000</span>
           <div class="qtystyle">
-            <button
-              type="button"
-              onclick="chgQty('s5', -1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              -</button
-            ><b id="q_s5" style="min-width: 20px; text-align: center">0</b
-            ><button
-              type="button"
-              onclick="chgQty('s5', 1)"
-              class="btn"
-              style="padding: 4px 10px"
-            >
-              +
-            </button>
+            <button type="button" onclick="chgQty('s5', -1)" class="btn" style="padding: 4px 10px">-</button><b id="q_s5" style="min-width: 20px; text-align: center">0</b><button type="button" onclick="chgQty('s5', 1)" class="btn" style="padding: 4px 10px">+</button>
           </div>
         </div>
       </div>
     </div>
     <div class="result">
-      <h4 style="color: var(--accent); font-size: 11px; letter-spacing: 2px">
-        YOUR ESTIMATE - REAL PRICE
-      </h4>
+      <h4 style="color: var(--accent); font-size: 11px; letter-spacing: 2px">YOUR ESTIMATE - REAL PRICE</h4>
       <div style="margin-top: 12px; line-height: 2.1; font-size: 14px">
-        <div style="display: flex; justify-content: space-between">
-          <span>Area:</span><b id="rArea">120 sqm</b>
-        </div>
-        <div style="display: flex; justify-content: space-between">
-          <span>Paint Needed:</span
-          ><b id="rLiters" style="color: var(--accent)">20 L</b>
-        </div>
-        <div style="display: flex; justify-content: space-between">
-          <span>Buckets Chosen:</span><b id="rBuckets">1 x 20L</b>
-        </div>
-        <hr
-          style="
-            border: none;
-            border-top: 1px solid var(--line);
-            margin: 10px 0;
-          "
-        />
-        <div style="display: flex; justify-content: space-between">
-          <span>Paint Cost:</span><b id="rPaint">₦25k</b>
-        </div>
-        <div style="display: flex; justify-content: space-between">
-          <span>Workmanship:</span><b id="rWork">₦90k</b>
-        </div>
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            font-weight: 900;
-            font-size: 18px;
-          "
-        >
-          <span>TOTAL:</span
-          ><b id="rTotal" style="color: var(--accent)">₦115k</b>
-        </div>
+        <div style="display: flex; justify-content: space-between"><span>Area:</span><b id="rArea">120 sqm</b></div>
+        <div style="display: flex; justify-content: space-between"><span>Paint Needed:</span><b id="rLiters" style="color: var(--accent)">20 L</b></div>
+        <div style="display: flex; justify-content: space-between"><span>Buckets Chosen:</span><b id="rBuckets">1 x 20L</b></div>
+        <hr style="border: none; border-top: 1px solid var(--line); margin: 10px 0;" />
+        <div style="display: flex; justify-content: space-between"><span>Paint Cost:</span><b id="rPaint">₦25k</b></div>
+        <div style="display: flex; justify-content: space-between"><span>Workmanship:</span><b id="rWork">₦90k</b></div>
+        <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 18px;"><span>TOTAL:</span><b id="rTotal" style="color: var(--accent)">₦115k</b></div>
       </div>
-      <button
-        class="btn btn-o"
-        style="width: 100%; margin-top: 12px"
-        onclick="useCalc()"
-      >
-        USE IN QUOTE →
-      </button>
-      <p
-        style="
-          font-size: 11px;
-          color: var(--muted);
-          margin-top: 8px;
-          text-align: center;
-        "
-      >
-        Labour + Paint Buckets = Total
-      </p>
+
+      <!-- YOUR OLD BUTTON -->
+      <button class="btn btn-o" style="width: 100%; margin-top: 12px" onclick="useCalc()">USE IN QUOTE →</button>
+
+      <!-- NEW PAY BUTTONS - ADDED WITH YOUR LOGO COLOR -->
+      <a id="payNowBtn" href="checkout.html" style="display:block; background:#14285C; color:#fff; padding:15px; border-radius:12px; text-align:center; text-decoration:none; font-weight:700; margin-top:12px; font-size:14px; letter-spacing:0.3px;">
+        💳 PAY NOW ONLINE - SECURE
+      </a>
+      <a id="waPayBtn" href="https://wa.me/2347043898826" style="display:block; background:#25D366; color:#fff; padding:13px; border-radius:12px; text-align:center; text-decoration:none; font-weight:600; margin-top:8px; font-size:13px;">
+        💬 Pay via Transfer (Opay 8155053812)
+      </a>
+
+      <p style="font-size: 11px; color: var(--muted); margin-top: 8px; text-align: center;">Labour + Paint Buckets = Total • Secured by Paystack</p>
     </div>
   </div>
 </section>
+
+<script>
+// This script makes the Pay button carry your estimate to checkout
+function updatePayLink(){
+  const room = document.getElementById('roomType');
+  const totalText = document.getElementById('rTotal').innerText;
+  if(!room) return;
+  const serviceName = room.options[room.selectedIndex].text;
+  const total = totalText.replace(/[^0-9]/g,'');
+  const link = document.getElementById('payNowBtn');
+  if(link){
+    link.href = `checkout.html?service=${encodeURIComponent(serviceName)}&amount=${total}000`;
+  }
+}
+// Run when calc changes
+const oldDoCalc = window.doCalc;
+window.doCalc = function(){
+  if(oldDoCalc) oldDoCalc();
+  updatePayLink();
+}
+setTimeout(updatePayLink, 1000);
+</script>
 <section id="quote"><div class="label">GET QUOTATION</div><h2 class="tt">Request Free Quotation</h2><div class="quote"><form id="quoteForm"><label class="lbl">FULL NAME *</label><input id="qName" class="input" required><label class="lbl">PHONE *</label><input id="qPhone" class="input" required><label class="lbl">LOCATION *</label><input id="qLocation" class="input" required><label class="lbl">SERVICE</label><select id="qService" class="input"><option>Interior</option><option>Exterior</option><option>All House</option><option>Shop - Budget</option><option>POP + Painting</option></select><label class="lbl">BUILDING</label><input id="qSize" class="input"><label class="lbl">COLOR</label><input id="qColor" class="input"><label class="lbl">ESTIMATE</label><input id="qEstimate" class="input" readonly><label class="lbl">DETAILS</label><textarea id="qDetails" class="input" style="height:60px"></textarea><div id="formMsg" style="display:none;margin-top:14px;padding:18px;border-radius:14px;text-align:center;font-weight:800;font-size:14px"></div><button type="submit" id="submitBtn" class="btn btn-o" style="width:100%;margin-top:14px;padding:15px">SUBMIT →</button></form><div><div class="card" style="background:var(--bg)"><h3>Why SOLO PAINTS?</h3><p style="color:var(--muted);margin-top:10px">✅ Real Photos Above</p><p style="color:var(--muted)">✅ CAC Registered</p><p style="color:var(--muted)">✅ Pay Small Small</p><p style="color:var(--muted)">✅ 6 Months Guarantee</p><div style="margin-top:14px;padding:12px;background:var(--card);border-radius:12px;border:1px solid var(--line)"><b style="font-size:13px">📞 Contact</b><p style="color:var(--muted);font-size:13px">07043898826<br>sammiejay111@gmail.com</p><div style="display:flex;gap:8px;margin-top:10px"><a href="tel:+2347043898826" style="background:var(--accent);color:#fff;padding:8px 14px;border-radius:100px;text-decoration:none;font-weight:800;font-size:12px">📞 Call Now</a></div></div></div></div></div></section>
 <div id="lightbox" onclick="closeLB()"><span onclick="closeLB()">×</span><img id="lbImg" src=""></div>
 <div class="footer">©️ 2026 SOLO PAINTS • RC: 3894521 • 07043898826<br><a href="admin.html" style="color:#222;text-decoration:none">admin</a></div>
