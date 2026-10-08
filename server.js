@@ -6,14 +6,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-// --- MongoDB (your working code) ---
-mongoose.connect(process.env.MONGODB_URI)
+// ✅ FIX 1: Serve all your pictures and logo
+app.use(express.static(__dirname));
+
+// --- MongoDB - FIX 2: Support both MONGO_URI and MONGODB_URI ---
+const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI;
+mongoose.connect(mongoUri)
 .then(()=> console.log("✅ MongoDB Connected - FINAL DB Ready"))
 .catch(err=> console.log("❌ Mongo Error:", err));
 
@@ -40,8 +43,6 @@ function protect(req,res,next){
 }
 
 // --- Routes ---
-
-// Public: Customer can submit (NO protection)
 app.post('/api/quote', async (req,res)=>{
   console.log("FRONTEND SENT:", req.body);
   try{
@@ -55,19 +56,16 @@ app.post('/api/quote', async (req,res)=>{
   }
 });
 
-// Protected: Get all quotes (only admin with token)
 app.get('/api/quotes', protect, async (req,res)=>{
   const quotes = await Quote.find().sort({createdAt:-1});
   res.json(quotes);
 });
 
-// Protected: Delete quote
 app.delete('/api/quotes/:id', protect, async (req,res)=>{
   await Quote.findByIdAndDelete(req.params.id);
   res.json({success:true});
 });
 
-// Login: Check admin user/pass and give token
 app.post('/api/login', async (req,res)=>{
   const {username, password} = req.body;
   if(username!== process.env.ADMIN_USER || password!== process.env.ADMIN_PASS){
@@ -77,11 +75,10 @@ app.post('/api/login', async (req,res)=>{
   res.json({success:true, token});
 });
 
-// Serve HTML files
+// Serve HTML
 app.get('/', (req,res)=> res.sendFile(path.join(__dirname,'index.html')));
 app.get('/admin', (req,res)=> res.sendFile(path.join(__dirname,'admin.html')));
 app.get('/login', (req,res)=> res.sendFile(path.join(__dirname,'login.html')));
 
-// Start
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, ()=> console.log(`Server running on http://localhost:${PORT}`));
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));

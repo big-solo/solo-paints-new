@@ -1144,5 +1144,16 @@ let data={
     btn.disabled=false;
   }
 });
+
+  window.addEventListener('load', function(){
+    const loader = document.getElementById('preloader');
+    if(loader) loader.style.display = 'none';
+  });
+  // safety: hide after 3 sec even if error
+  setTimeout(function(){
+    const loader = document.getElementById('preloader');
+    if(loader) loader.style.display = 'none';
+  }, 3000);
+
 </script></body></html>
 </script></body></html>
