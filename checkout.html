@@ -7,86 +7,74 @@
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{--navy:#14285C; --navy2:#1e3a8a;}
+  :root{--navy:#14285C}
   *{box-sizing:border-box; font-family:'Inter',sans-serif}
   body{margin:0; background:#f6f7fb; color:#0f172a}
-  .nav{background:#fff; padding:14px 20px; display:flex; align-items:center; justify-content:center; gap:12px; border-bottom:1px solid #eef2f7; position:sticky; top:0; z-index:10}
-  .nav img{width:46px; height:46px; border-radius:50%; object-fit:cover}
-  .nav b{font-size:18px; letter-spacing:0.5px}
-  .nav small{display:block; font-size:11px; color:#64748b; font-weight:500; margin-top:-2px}
+  .nav{background:#fff; padding:14px 20px; display:flex; align-items:center; justify-content:center; gap:12px; border-bottom:1px solid #eef2f7; position:sticky; top:0}
+  .nav img{width:46px; height:46px; border-radius:50%}
   .hero{background:var(--navy); color:#fff; text-align:center; padding:36px 20px 70px}
   .hero h1{margin:0; font-size:24px}
-  .hero p{opacity:0.8; font-size:13px; margin-top:6px}
   .wrap{max-width:540px; margin:-45px auto 40px; padding:0 16px}
   .card{background:#fff; border-radius:20px; padding:24px; box-shadow:0 16px 40px rgba(20,40,92,0.08); border:1px solid #eef2f7}
-  label{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#64748b; margin:18px 0 7px; display:block}
-  select,input{width:100%; padding:14px 14px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:15px; outline:none}
-  select:focus,input:focus{border-color:var(--navy); box-shadow:0 0 0 4px #e0e7ff}
-  .price-box{background:#f0f4ff; border:1.5px solid #c7d2fe; border-radius:14px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; margin:20px 0}
-  .price-box span{font-size:10px; font-weight:700; letter-spacing:1px; color:#4338ca; text-transform:uppercase}
-  .price-box b{font-size:28px; display:block; margin-top:2px}
+  label{font-size:11px; font-weight:700; text-transform:uppercase; color:#64748b; margin:18px 0 7px; display:block}
+  select,input{width:100%; padding:14px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:15px}
+  .price-box{background:#f0f4ff; border:1.5px solid #c7d2fe; border-radius:14px; padding:14px 16px; display:flex; justify-content:space-between; margin:20px 0}
   .pay-grid{display:flex; gap:10px}
-  .pay-opt{flex:1; border:1.8px solid #e2e8f0; border-radius:12px; padding:13px; cursor:pointer; transition:0.2s}
+  .pay-opt{flex:1; border:1.8px solid #e2e8f0; border-radius:12px; padding:13px; cursor:pointer}
   .pay-opt.active{border-color:var(--navy); background:#f8faff}
-  .pay-opt b{font-size:13px}
-  .pay-opt small{font-size:11px; color:#64748b; display:block; margin-top:2px}
-  #bankBox{display:none; background:#eff6ff; border:1px dashed #93c5fd; padding:12px; border-radius:10px; font-size:13px; margin-top:12px; line-height:1.5}
+  #bankBox{display:none; background:#eff6ff; border:1px dashed #93c5fd; padding:12px; border-radius:10px; font-size:13px; margin-top:12px}
   .btn{width:100%; background:var(--navy); color:#fff; border:none; padding:16px; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; margin-top:22px}
-  .btn:hover{background:#1a357a}
-  .foot{text-align:center; font-size:11px; color:#94a3b8; margin-top:14px}
 </style>
 </head>
 <body>
-
-<div class="nav">
-  <img src="logo.png" alt="Solo Paints Logo">
-  <div><b>SOLO PAINTS</b><small>Professional Painting Services</small></div>
-</div>
-
-<div class="hero">
-  <h1>Book Your Painter</h1>
-  <p>Fast, Neat & Affordable - Shops, Flats & Houses</p>
-</div>
-
-<div class="wrap">
-<div class="card">
-  <label>Service Type</label>
-  <select id="jobType"></select>
-
-  <div class="price-box">
-    <div><span>Amount to Pay</span><b id="price">₦25,000</b></div>
-    <img src="logo.png" style="width:40px; height:40px; border-radius:50%">
-  </div>
-
-  <label>Full Name</label>
-  <input id="name" placeholder="E.g. John Ade">
-  <label>Phone Number</label>
-  <input id="phone" type="tel" placeholder="07043898826">
-  <label>Service Address</label>
-  <input id="address" placeholder="E.g. Shop 12, Alaba International">
-
+<div class="nav"><img src="logo.png"><div><b>SOLO PAINTS</b></div></div>
+<div class="hero"><h1>Book Your Painter</h1><p>Fast, Neat & Affordable</p></div>
+<div class="wrap"><div class="card">
+  <label>Service Type</label><select id="jobType"></select>
+  <div class="price-box"><div><span>Amount to Pay</span><b id="price">₦25,000</b></div><img src="logo.png" style="width:40px;height:40px;border-radius:50%"></div>
+  <label>Full Name</label><input id="name">
+  <label>Phone Number</label><input id="phone" type="tel">
+  <label>Service Address</label><input id="address">
   <label>Payment Method</label>
   <div class="pay-grid">
     <div class="pay-opt active" id="p1" onclick="setPay('online')"><b>💳 Pay Online</b><small>Card, Opay, USSD</small></div>
     <div class="pay-opt" id="p2" onclick="setPay('bank')"><b>🏦 Transfer</b><small>Opay 8155053812</small></div>
   </div>
-
-  <div id="bankBox">Bank: Opay<br>Account: 8155053812<br>Name:samuel solomon<br><span style="color:green">After transfer, click button to send proof on WhatsApp</span></div>
-
-  <button class="btn" id="btn" onclick="pay()">Pay ₦25,000 Now</button>
-  <div class="foot">🔒 Secured by Paystack • Instant Confirmation • 07043898826</div>
-  <p style="text-align:center; margin-top:12px"><a href="index.html" style="text-decoration:none; color:#64748b; font-size:12px">← Back to Home</a></p>
-</div>
-</div>
-
+  <div id="bankBox">Bank: Opay<br>Account: 8155053812<br>Name: Samuel Solomon<br><span style="color:green">After transfer, click button to send proof</span></div>
+  <button class="btn" id="btn" onclick="pay()">Pay Now</button>
+</div></div>
 <script>
 const prices={"Small Shop / Kiosk":25000,"Container Shop":28000,"Medium Shop":30000,"Big Shop / 2 Shops":35000,"Supermarket":50000,"Self Contain":50000,"1 Bedroom Flat":90000,"2 Bedroom Flat":150000,"3 Bedroom Flat":220000,"4 Bedroom / Duplex":270000,"Full House":350000,"Exterior Small":70000,"Exterior Big":90000,"All House 2 Bed":220000,"All House 3 Bed":320000,"All House 4-5 Bed":390000};
 let method='online', amt=25000, jname='Small Shop / Kiosk';
+const params = new URLSearchParams(window.location.search);
+const urlAmount = params.get('amount') ? parseInt(params.get('amount').replace(/[^0-9]/g,'')) : null;
+const urlService = params.get('service') ? decodeURIComponent(params.get('service')) : null;
 const sel=document.getElementById('jobType');
 Object.entries(prices).forEach(([k,v])=>{let o=document.createElement('option');o.value=v;o.textContent=`${k} - ₦${v.toLocaleString()}`;o.dataset.name=k;sel.appendChild(o);});
-sel.addEventListener('change',()=>{let o=sel.options[sel.selectedIndex];amt=parseInt(o.value);jname=o.dataset.name;document.getElementById('price').innerText='₦'+amt.toLocaleString();document.getElementById('btn').innerText=method==='bank'?`I Have Transferred ₦${amt.toLocaleString()} - Send Proof`:`Pay ₦${amt.toLocaleString()} Now`;});
-function setPay(t){method=t;document.getElementById('p1').classList.toggle('active',t==='online');document.getElementById('p2').classList.toggle('active',t==='bank');document.getElementById('bankBox').style.display=t==='bank'?'block':'none';document.getElementById('btn').innerText=t==='bank'?`I Have Transferred ₦${amt.toLocaleString()} - Send Proof`:`Pay ₦${amt.toLocaleString()} Now`;}
-function pay(){const n=document.getElementById('name').value.trim(),p=document.getElementById('phone').value.trim(),a=document.getElementById('address').value.trim();if(!n||!p||!a){alert('Please fill all fields');return;} if(method==='bank'){location.href='https://wa.me/2347043898826?text='+encodeURIComponent(`Hello Solo Paints, I transferred ₦${amt.toLocaleString()} for ${jname}. Name: ${n}, Phone: ${p}, Address: ${a}`);return;} PaystackPop.setup({key:'pk_test_d3bfb4f126e845da2535c58d429887167f4edfa8',email:p+'@gmail.com',amount:amt*100,currency:'NGN',ref:'SOLO_'+Date.now(),callback:r=>location.href='success.html?ref='+r.reference,onClose:()=>alert('Payment cancelled')}).openIframe();}
+if(urlAmount && urlService){
+  let customOpt=document.createElement('option');
+  customOpt.value=urlAmount;
+  customOpt.textContent=`${urlService} - ₦${urlAmount.toLocaleString()} (Your Quote)`;
+  customOpt.dataset.name=urlService;
+  sel.prepend(customOpt);
+  amt=urlAmount; jname=urlService; sel.selectedIndex=0;
+}
+function updateDisplay(){
+  document.getElementById('price').innerText='₦'+amt.toLocaleString();
+  document.getElementById('btn').innerText=method==='bank'?`I Have Transferred ₦${amt.toLocaleString()} - Send Proof`:`Pay ₦${amt.toLocaleString()} Now`;
+}
+if(params.get('name')) document.getElementById('name').value=decodeURIComponent(params.get('name'));
+if(params.get('phone')) document.getElementById('phone').value=decodeURIComponent(params.get('phone'));
+if(params.get('location')) document.getElementById('address').value=decodeURIComponent(params.get('location'));
+updateDisplay();
+sel.addEventListener('change',()=>{let o=sel.options[sel.selectedIndex];amt=parseInt(o.value);jname=o.dataset.name;updateDisplay();});
+function setPay(t){method=t;document.getElementById('p1').classList.toggle('active',t==='online');document.getElementById('p2').classList.toggle('active',t==='bank');document.getElementById('bankBox').style.display=t==='bank'?'block':'none';updateDisplay();}
+function pay(){
+  const n=document.getElementById('name').value.trim(),p=document.getElementById('phone').value.trim(),a=document.getElementById('address').value.trim();
+  if(!n||!p||!a){alert('Please fill all fields');return;}
+  if(method==='bank'){location.href='https://wa.me/2347043898826?text='+encodeURIComponent(`Hello Solo Paints, I transferred ₦${amt.toLocaleString()} for ${jname}. Name: ${n}, Phone: ${p}, Address: ${a}`);return;}
+  PaystackPop.setup({key:'pk_test_d3bfb4f126e845da2535c58d429887167f4edfa8',email:p+'@gmail.com',amount:amt*100,currency:'NGN',ref:'SOLO_'+Date.now(),callback:r=>location.href='success.html?ref='+r.reference+'&name='+encodeURIComponent(n)+'&amount='+amt+'&service='+encodeURIComponent(jname),onClose:()=>alert('Payment cancelled')}).openIframe();
+}
 </script>
 </body>
 </html>

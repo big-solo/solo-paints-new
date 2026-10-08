@@ -4,51 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Payment Successful - SOLO PAINTS</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
 <style>
-  :root{--navy:#14285C;}
-  *{box-sizing:border-box; font-family:'Inter',sans-serif}
-  body{margin:0; background:#f6f7fb; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:16px}
-  .card{background:#fff; border-radius:20px; padding:32px 22px; max-width:420px; width:100%; text-align:center; box-shadow:0 16px 40px rgba(20,40,92,0.08); border:1px solid #eef2f7}
-  .logo{width:68px; height:68px; border-radius:50%; margin:0 auto 14px; display:block; object-fit:cover; border:2px solid #eef2f7}
-  .check{width:60px; height:60px; background:#dcfce7; color:#16a34a; border-radius:50%; display:grid; place-items:center; font-size:30px; margin:0 auto 16px}
-  h2{margin:8px 0 6px; color:var(--navy); font-size:22px}
-  p{color:#64748b; font-size:14px; line-height:1.5; margin:6px 0}
-  .ref{background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:12px; font-size:12px; margin:18px 0; word-break:break-all; color:#0f172a; font-weight:600}
-  .btn{display:block; width:100%; padding:14px; border-radius:12px; text-decoration:none; font-weight:700; font-size:14px; margin-top:12px}
-  .btn-wa{background:#25D366; color:#fff}
-  .btn-home{background:var(--navy); color:#fff}
-  .small{font-size:11px; color:#94a3b8; margin-top:14px}
+*{box-sizing:border-box; font-family:'Inter',sans-serif}
+body{margin:0; background:#f6f7fb; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:16px}
+.card{background:#fff; max-width:420px; width:100%; border-radius:20px; padding:28px; text-align:center; box-shadow:0 20px 50px rgba(20,40,92,0.1); border:1px solid #eef2f7}
+.check{width:60px; height:60px; background:#22c55e; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; color:#fff; margin:0 auto 16px}
+h1{margin:0; font-size:22px; color:#14285C}
+p{color:#64748b; font-size:13px; line-height:1.5; margin:10px 0}
+.box{background:#f8faff; border:1px solid #e0e7ff; border-radius:12px; padding:14px; text-align:left; margin:16px 0; font-size:13px; line-height:1.6}
+.box b{color:#14285C}
+.btn{display:block; width:100%; padding:14px; border-radius:12px; text-decoration:none; font-weight:700; font-size:14px; margin-top:10px; text-align:center}
+.btn-green{background:#25D366; color:#fff}
+.btn-navy{background:#14285C; color:#fff}
+.small{font-size:11px; color:#94a3b8; margin-top:14px}
 </style>
 </head>
 <body>
 <div class="card">
-  <img src="logo.png" alt="Solo Paints Logo" class="logo">
   <div class="check">✓</div>
-  <h2>Payment Successful</h2>
-  <p>Thank you for choosing <b>SOLO PAINTS</b>.<br>Your booking has been received.</p>
+  <h1>Payment Successful!</h1>
+  <p>Thank you <b id="custName">Customer</b>, we have received your payment.</p>
   
-  <div class="ref" id="refId">Reference: Loading...</div>
-  
-  <p style="font-size:13px; color:#0f172a">We will contact you shortly on <b>07043898826</b> to confirm your address and schedule your painting service.</p>
-  
-  <p style="background:#eff6ff; border:1px dashed #93c5fd; padding:10px; border-radius:10px; font-size:12px; text-align:left; line-height:1.5">
-    <b>Paid via Bank Transfer?</b><br>
-    If you transferred to Opay <b>8155053812</b>, please send your payment receipt on WhatsApp with your full address.
-  </p>
+  <div class="box">
+    <div>Ref: <b id="ref">-</b></div>
+    <div>Service: <b id="service">-</b></div>
+    <div>Amount Paid: <b id="amount" style="font-size:18px; color:#14285C">₦0</b></div>
+    <div style="margin-top:8px; font-size:11px; color:#64748b">Paid to Opay: 8155053812 - Samuel Solomon</div>
+  </div>
 
-  <a id="waLink" class="btn btn-wa" href="#">Confirm on WhatsApp</a>
-  <a class="btn btn-home" href="index.html">Back to Home</a>
+  <p>Our painter will contact you within 30 minutes to confirm date. You will also get SMS confirmation.</p>
+
+  <a id="waBtn" class="btn btn-green" href="#">💬 Chat Us on WhatsApp</a>
+  <a class="btn btn-navy" href="index.html">← Back to Home</a>
   
-  <div class="small">Secured by Paystack • SOLO PAINTS • Professional Painting Services</div>
+  <div class="small">Solo Paints • 07043898826 • Secured by Paystack<br>Bank: Opay 8155053812 - Samuel Solomon</div>
 </div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const ref = params.get('ref') || 'BANK_TRANSFER';
-  document.getElementById('refId').innerText = 'Reference: ' + ref;
-  const msg = `Hello Solo Paints, I have completed my payment. My reference is ${ref}. Please confirm my booking.`;
-  document.getElementById('waLink').href = 'https://wa.me/2347043898826?text=' + encodeURIComponent(msg);
+const params = new URLSearchParams(window.location.search);
+const ref = params.get('ref') || 'N/A';
+const name = params.get('name') ? decodeURIComponent(params.get('name')) : 'Customer';
+const amount = params.get('amount') ? parseInt(params.get('amount').replace(/[^0-9]/g,'')) : 0;
+const service = params.get('service') ? decodeURIComponent(params.get('service')) : 'Painting Service';
+
+document.getElementById('ref').innerText = ref;
+document.getElementById('custName').innerText = name;
+document.getElementById('service').innerText = service;
+document.getElementById('amount').innerText = '₦' + amount.toLocaleString();
+document.getElementById('waBtn').href = `https://wa.me/2347043898826?text=${encodeURIComponent(`Hello Solo Paints, I just paid ₦${amount.toLocaleString()} for ${service}. Ref: ${ref}. Name: ${name}`)}`;
+
+// Save to local history
+let all = JSON.parse(localStorage.getItem('solo_payments')||'[]');
+all.unshift({ref, name, amount, service, date:new Date().toLocaleString()});
+localStorage.setItem('solo_payments', JSON.stringify(all));
 </script>
 </body>
 </html>
