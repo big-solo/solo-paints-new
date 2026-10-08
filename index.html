@@ -1038,7 +1038,14 @@ function chgQty(k,d){qty[k]=Math.max(0,qty[k]+d);document.getElementById('q_'+k)
 function doCalc(){let roomText=roomType.options[roomType.selectedIndex].text.trim();let base=parseFloat(roomType.value)||120;let coatsV=parseInt(coats.value)||2;let area=base;let totalArea=area*coatsV;let liters=totalArea/12;let paintCost=0;let totalLitersChosen=0;let breakdown=[];if(paintType==='emulsion'||paintType==='both'){if(qty.e20>0){paintCost+=qty.e20*PRICE.e20;totalLitersChosen+=qty.e20*20;breakdown.push(qty.e20+'x20L Emu');}if(qty.e5>0){paintCost+=qty.e5*PRICE.e5;totalLitersChosen+=qty.e5*5;breakdown.push(qty.e5+'x5L Emu');}}if(paintType==='satin'||paintType==='both'){if(qty.s20>0){paintCost+=qty.s20*PRICE.s20;totalLitersChosen+=qty.s20*20;breakdown.push(qty.s20+'x20L Satin');}if(qty.s5>0){paintCost+=qty.s5*PRICE.s5;totalLitersChosen+=qty.s5*5;breakdown.push(qty.s5+'x5L Satin');}}let work=laborPrices[roomText]||90000;if(coatsV===3)work=Math.round(work*1.25);if(coatsV===1)work=Math.round(work*0.85);let total=paintCost+work;rArea.innerText=area+' sqm';rLiters.innerText=liters.toFixed(1)+' L needed';rBuckets.innerText=breakdown.length?breakdown.join(' + ')+' = '+totalLitersChosen+'L':totalLitersChosen+'L';rPaint.innerText='₦'+paintCost.toLocaleString();rWork.innerText='₦'+work.toLocaleString();rTotal.innerText='₦'+total.toLocaleString();window._last={room:roomText,area,liters:liters.toFixed(1),buckets:totalLitersChosen,paintCost,work,total,qty,paintType,breakdown:breakdown.join(', ')};}
 function useCalc(){doCalc();let c=window._last;qSize.value=c.room+' ('+c.area+' sqm)';qEstimate.value='₦'+c.total.toLocaleString();qDetails.value=c.room+', '+c.area+'sqm, Needed '+c.liters+'L, Chosen '+c.breakdown+' ('+c.buckets+'L), Paint ₦'+c.paintCost.toLocaleString()+', Work ₦'+c.work.toLocaleString()+', Total ₦'+c.total.toLocaleString()+', Type: '+c.paintType;document.getElementById('quote').scrollIntoView({behavior:'smooth'});}doCalc();
 function openLB(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('show')}function closeLB(){document.getElementById('lightbox').classList.remove('show')}
-document.getElementById('quoteForm').addEventListener('submit', async function(e){e.preventDefault();const btn=document.getElementById('submitBtn');const msg=document.getElementById('formMsg');btn.innerText='SENDING...';btn.disabled=true;msg.style.display='none';let c=window._last;
+document.getElementById('quoteForm').addEventListener('submit', async function(e){
+e.preventDefault();
+const btn=document.getElementById('submitBtn');
+const msg=document.getElementById('formMsg');
+btn.innerText='SENDING...';
+btn.disabled=true;
+msg.style.display='none';
+let c=window._last;
 let data={
  id:Date.now(),
  name:qName.value,
@@ -1055,7 +1062,8 @@ let data={
  workCost:c.work,
  date:new Date().toLocaleString(),
  status:'New'
-};  let all=JSON.parse(localStorage.getItem('solo_quotes')||'[]');
+};  
+let all=JSON.parse(localStorage.getItem('solo_quotes')||'[]');
   all.unshift(data);
   localStorage.setItem('solo_quotes',JSON.stringify(all));
   try{
@@ -1075,6 +1083,7 @@ let data={
     fd.append('_subject','NEW QUOTE - '+data.name);
     fd.append('_template','table');
     fd.append('_captcha','false');
+  
   // 1. First save to YOUR MongoDB
   try {
     const saveToDB = await fetch('/api/quote', {
@@ -1093,20 +1102,49 @@ let data={
     body: fd
   });
 
+  // 3. NOW SHOW SUCCESS + PAY BUTTONS (NEW - YOUR IDEA)
+  const estimate = data.estimate || 'To be confirmed';
+  let amountNum = estimate.replace(/[^0-9]/g,'');
+  if(amountNum.length <=3 && amountNum!='') amountNum = amountNum + '000';
+  if(amountNum=='') amountNum = '50000';
+  const checkoutLink = `checkout.html?name=${encodeURIComponent(data.name)}&phone=${encodeURIComponent(data.phone)}&service=${encodeURIComponent(data.service + ' - ' + data.size)}&amount=${amountNum}&location=${encodeURIComponent(data.location)}`;
+
   document.getElementById('formMsg').style.display='block';
-  document.getElementById('formMsg').style.background='#00c853';
-  document.getElementById('formMsg').style.color='#fff';
-  document.getElementById('formMsg').innerHTML='✅ SUCCESS! We will call you within 30 minutes. Saved to database!';
-  document.getElementById('quoteForm').reset();
-  qty={e20:1,e5:0,s20:0,s5:0};
-  doCalc();
-  btn.innerText='✓ SENT';
-  setTimeout(()=>{btn.innerText='SUBMIT →';btn.disabled=false;},4000);
+  document.getElementById('formMsg').style.background='#f0fdf4';
+  document.getElementById('formMsg').style.border='1px solid #bbf7d0';
+  document.getElementById('formMsg').style.color='#14532d';
+  document.getElementById('formMsg').style.padding='20px';
+  document.getElementById('formMsg').style.borderRadius='16px';
+  document.getElementById('formMsg').innerHTML=`
+    <div style="font-size:28px">✅</div>
+    <div style="font-weight:800; color:#14285C; margin-top:6px; font-size:15px;">SUCCESS! Quote Saved!</div>
+    <div style="font-size:11px; color:#64748b; margin-top:4px;">We will call ${data.name} within 30 mins<br>Saved to database + email sent</div>
+    <div style="font-size:13px; font-weight:700; margin-top:10px; color:#14285C;">Estimate: ${estimate}</div>
+    <a href="${checkoutLink}" style="display:block; background:#14285C; color:#fff; padding:15px; border-radius:12px; text-decoration:none; font-weight:800; margin-top:14px; font-size:14px; text-align:center;">💳 PAY NOW WITH CARD / BANK - SECURE</a>
+    <div style="background:#fff; border:1px dashed #93c5fd; padding:10px; border-radius:12px; margin-top:10px; font-size:12px; text-align:left;">
+      <b>🏦 Transfer Option:</b><br>Opay: <b>8155053812</b> - Solo Paints<br><span style="font-size:10px; color:#64748b">After transfer, confirm on WhatsApp</span>
+    </div>
+    <a href="https://wa.me/2347043898826?text=Hello%20Solo%20Paints,%20I%20paid%20for%20${encodeURIComponent(data.service)}%20-%20${encodeURIComponent(data.name)}" style="display:block; background:#25D366; color:#fff; padding:13px; border-radius:12px; text-decoration:none; font-weight:700; margin-top:8px; text-align:center; font-size:13px;">💬 Confirm Payment on WhatsApp</a>
+  `;
+  document.getElementById('formMsg').scrollIntoView({behavior:'smooth'});
+  btn.innerText='✓ SENT & SAVED';
+  btn.style.display='none'; // Hide button after success
+  
   }catch(err){
+    console.log(err);
     document.getElementById('formMsg').style.display='block';
-    document.getElementById('formMsg').innerHTML='✅ Saved locally';
-    document.getElementById('quoteForm').reset();
+    document.getElementById('formMsg').style.background='#f0fdf4';
+    document.getElementById('formMsg').style.padding='20px';
+    document.getElementById('formMsg').style.borderRadius='16px';
+    let amountNum = (qEstimate.value || '50000').replace(/[^0-9]/g,'');
+    if(amountNum.length <=3) amountNum = amountNum + '000';
+    const checkoutLink = `checkout.html?name=${encodeURIComponent(qName.value)}&phone=${encodeURIComponent(qPhone.value)}&service=${encodeURIComponent(qService.value)}&amount=${amountNum}`;
+    document.getElementById('formMsg').innerHTML=`
+      <div style="text-align:center;">✅ Saved locally</div>
+      <a href="${checkoutLink}" style="display:block; background:#14285C; color:#fff; padding:15px; border-radius:12px; text-decoration:none; font-weight:800; margin-top:14px; text-align:center;">💳 PAY NOW</a>
+    `;
     btn.disabled=false;
+    btn.innerText='SUBMIT →';
   }
 });
 
